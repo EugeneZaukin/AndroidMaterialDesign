@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AndroidMaterialDesign</string>
+    <string name="search_wiki">search Wiki</string>
+    <string name="wiki_helper_text">Wiki helper text</string>
 </resources>

@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.AndroidMaterialDesign" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.AndroidMaterialDesign" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -13,4 +13,23 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="MarsTheme" parent="Theme.AndroidMaterialDesign">
+        <item name="colorPrimary">#d84315</item>
+        <item name="colorPrimaryVariant">#9f0000</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorAccent">#ff7543</item>
+        <item name="colorBackgroundBottomSheet">@color/grey_dark</item>
+        <item name="colorOnPrimaryBootomSheet">@color/black</item>
+    </style>
+
+    <style name="SpaceTheme" parent="Theme.AndroidMaterialDesign">
+        <item name="colorPrimary">#000099</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">#330066</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorBackgroundBottomSheet">@color/blue_light</item>
+        <item name="colorOnPrimaryBootomSheet">@color/white</item>
+    </style>
+
 </resources>

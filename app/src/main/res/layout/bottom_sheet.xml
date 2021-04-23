@@ -3,46 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_sheet_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#cccc99"
-    app:behavior_hideable="true"
-    app:behavior_peekHeight="50dp"
+    style="@style/BottomSheetTheme"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <View
         android:id="@+id/bottom_sheet_line"
-        android:layout_width="25dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="5dp"
-        android:background="#663b4351"
+        style="@style/ViewBottomSheet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/bottom_sheet_description_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textColor="#000"
-        android:textStyle="bold"
+        style="@style/TextViewDescriptionHeaderBottomSheet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line"
-        android:text="Two Clusters and a Comet" />
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line" />
 
     <TextView
         android:id="@+id/bottom_sheet_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
+        style="@style/TextViewDescriptionBottomSheet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_description_header"
-        android:text="This lovely starfield spans some four full moons." />
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_description_header" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

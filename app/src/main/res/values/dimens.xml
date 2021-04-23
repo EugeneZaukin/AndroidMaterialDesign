@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="padding">10dp</dimen>
+    <dimen name="main_fragment_padding">10dp</dimen>
+    <dimen name="chip_margin">15dp</dimen>
+
+    <dimen name="text_input_wiki_layout_width">0dp</dimen>
+
+    <dimen name="bottom_sheet_peekHeight">100dp</dimen>
+
+    <dimen name="view_bootom_sheet_layout_width">25dp</dimen>
+    <dimen name="view_bootom_sheet_layout_height">1dp</dimen>
+    <dimen name="view_bootom_sheet_layout_margin_top">5dp</dimen>
+
+    <dimen name="text_view_descriptionheader_bottom_sheet_layout_margin_top">5dp</dimen>
+    <dimen name="text_view_descriptionheader_bottom_sheet_layout_padding">10dp</dimen>
+    <dimen name="text_view_descriptionheader_bottom_sheet_text_size">25sp</dimen>
+
+    <dimen name="text_view_description_bottom_sheet_layout_padding">10dp</dimen>
+    <dimen name="text_view_description_bottom_sheet_text_size">20sp</dimen>
+
 </resources>

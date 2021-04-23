@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextInputLayoutForWiki" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">@dimen/text_input_wiki_layout_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:hint">@string/search_wiki</item>
+        <item name="helperText">@string/wiki_helper_text</item>
+        <item name="counterEnabled">true</item>
+        <item name="endIconMode">custom</item>
+        <item name="endIconDrawable">@drawable/ic_wikipedia</item>
+        <item name="counterMaxLength">30</item>
+    </style>
+
+    <style name="BottomSheetTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">?attr/colorBackgroundBottomSheet</item>
+        <item name="behavior_hideable">true</item>
+        <item name="behavior_peekHeight">@dimen/bottom_sheet_peekHeight</item>
+    </style>
+
+    <style name="ViewBottomSheet">
+        <item name="android:layout_width">@dimen/view_bootom_sheet_layout_width</item>
+        <item name="android:layout_height">@dimen/view_bootom_sheet_layout_height</item>
+        <item name="android:layout_marginTop">@dimen/view_bootom_sheet_layout_margin_top</item>
+        <item name="android:background">@color/grey_light</item>
+    </style>
+
+    <style name="TextViewDescriptionHeaderBottomSheet">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/text_view_descriptionheader_bottom_sheet_layout_margin_top</item>
+        <item name="android:paddingStart">@dimen/text_view_descriptionheader_bottom_sheet_layout_padding</item>
+        <item name="android:paddingEnd">@dimen/text_view_descriptionheader_bottom_sheet_layout_padding</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">@string/text_view_descriptionheader_bottom_sheet_text</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/text_view_descriptionheader_bottom_sheet_text_size</item>
+        <item name="android:textColor">?attr/colorOnPrimaryBootomSheet</item>
+    </style>
+
+    <style name="TextViewDescriptionBottomSheet">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">@dimen/text_view_description_bottom_sheet_layout_padding</item>
+        <item name="android:paddingEnd">@dimen/text_view_description_bottom_sheet_layout_padding</item>
+        <item name="android:text">@string/text_view_description_bottom_sheet_text</item>
+        <item name="android:textSize">@dimen/text_view_description_bottom_sheet_text_size</item>
+        <item name="android:textColor">?attr/colorOnPrimaryBootomSheet</item>
+    </style>
+
+</resources>

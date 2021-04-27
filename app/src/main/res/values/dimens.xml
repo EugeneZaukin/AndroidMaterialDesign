@@ -17,5 +17,7 @@
 
     <dimen name="text_view_description_bottom_sheet_layout_padding">10dp</dimen>
     <dimen name="text_view_description_bottom_sheet_text_size">20sp</dimen>
+    <dimen name="view_pager_height">400dp</dimen>
+    <dimen name="text_date_size">25sp</dimen>
 
 </resources>

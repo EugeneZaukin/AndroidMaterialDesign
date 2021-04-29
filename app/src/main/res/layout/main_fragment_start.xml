@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/button_wiki_margin_end"
             android:layout_marginBottom="@dimen/button_wiki_margin_bottom"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/input_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/input_layout"
@@ -29,8 +29,7 @@
             android:id="@+id/input_layout"
             style="@style/TextInputLayoutForWiki"
             app:layout_constraintBottom_toTopOf="@+id/view_pager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toEndOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_edit_text"

@@ -19,5 +19,7 @@
     <dimen name="text_view_description_bottom_sheet_text_size">20sp</dimen>
     <dimen name="view_pager_height">400dp</dimen>
     <dimen name="text_date_size">25sp</dimen>
+    <dimen name="button_wiki_margin_end">8dp</dimen>
+    <dimen name="button_wiki_margin_bottom">10dp</dimen>
 
 </resources>

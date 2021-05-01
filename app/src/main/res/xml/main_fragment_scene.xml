@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@layout/main_fragment"
+        motion:constraintSetStart="@layout/main_fragment_start"
+        motion:duration="1000">
+
+        <OnClick app:targetId="@+id/wiki_button"/>
+    </Transition>
+</MotionScene>

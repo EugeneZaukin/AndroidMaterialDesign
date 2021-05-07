@@ -3,13 +3,17 @@ package com.eugene.androidmaterialdesign.ui.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.transition.ArcMotion
+import androidx.transition.ChangeBounds
 import android.view.*
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.TransitionManager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import coil.api.load
 import com.eugene.androidmaterialdesign.MainActivity
@@ -32,6 +36,7 @@ class MainFragment : Fragment() {
     private lateinit var bsTittle: TextView
     private lateinit var bsContent: TextView
     private lateinit var textDate: TextView
+    private var animationPosition = 2
 
     companion object {
         fun newInstance() = MainFragment()
@@ -107,13 +112,11 @@ class MainFragment : Fragment() {
 //        }
 //    }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val currentData = Date()
 
         var date = currentData.today
-
 
         //Определяем первональную позицию
         view_pager.currentItem = 2
@@ -121,12 +124,35 @@ class MainFragment : Fragment() {
         view_pager.addOnPageChangeListener(object  : OnPageChangeListener {
             override fun onPageSelected(position: Int) {
                 when(position) {
-                    0 -> date = currentData.theDayBeforeYesterday
-                    1 -> date = currentData.yesterday
-                    2 -> date = currentData.today
+                    0 -> {
+                        date = currentData.theDayBeforeYesterday
+                        animationPosition = 0
+                    }
+                    1 -> {
+                        date = currentData.yesterday
+                        animationPosition = 1
+                    }
+                    2 -> {
+                        date = currentData.today
+                        animationPosition = 2
+                    }
                 }
                 viewModel.getData(date).observe(viewLifecycleOwner, Observer<PictureOfTheDayData> { renderData(it) })
+
                 textDate.text = date
+
+                val changeBounds = ChangeBounds()
+                changeBounds.setPathMotion(ArcMotion())
+                changeBounds.duration = 500
+                TransitionManager.beginDelayedTransition(animation, changeBounds)
+                val params = textDate.layoutParams as FrameLayout.LayoutParams
+                params.gravity = when(animationPosition) {
+                    0 -> Gravity.START
+                    1 -> Gravity.CENTER
+                    2 -> Gravity.END
+                    else -> Gravity.END
+                }
+                textDate.layoutParams = params
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
@@ -136,7 +162,6 @@ class MainFragment : Fragment() {
         viewModel.getData(date).observe(viewLifecycleOwner, Observer<PictureOfTheDayData> { renderData(it) })
         textDate.text = date
     }
-
 
     private fun renderData(data: PictureOfTheDayData) {
         when (data) {
@@ -154,10 +179,7 @@ class MainFragment : Fragment() {
                         placeholder(R.drawable.formatimage)
                     }
 
-
-
 //                    DayFragment.newInstance(url)
-
 
                     bsTittle.text = serverResponseData.title
                     bsContent.text = serverResponseData.explanation
@@ -171,7 +193,6 @@ class MainFragment : Fragment() {
             }
         }
     }
-
 
     private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)

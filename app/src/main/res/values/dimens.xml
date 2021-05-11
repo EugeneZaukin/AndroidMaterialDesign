@@ -21,5 +21,14 @@
     <dimen name="text_date_size">25sp</dimen>
     <dimen name="button_wiki_margin_end">8dp</dimen>
     <dimen name="button_wiki_margin_bottom">10dp</dimen>
+    <dimen name="margin_fab_on_recycler_activity">15dp</dimen>
+    <dimen name="margin_card_view_on_recycler">10dp</dimen>
+    <dimen name="corner_radius_card_view">15dp</dimen>
+    <dimen name="margin_start_tv_on_card_view">15dp</dimen>
+    <dimen name="margin_top_tv_on_card_view">5dp</dimen>
+    <dimen name="header_text_size_on_card_view">25sp</dimen>
+    <dimen name="margin_top_edit_text_on_card_view">50dp</dimen>
+    <dimen name="margin_start_edit_text_on_card_view">15dp</dimen>
+    <dimen name="text_size_edit_text_on_card_view">20sp</dimen>
 
 </resources>

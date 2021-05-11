@@ -4,6 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/notes"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/bottom_menu_item_notes"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/settings"
         android:icon="@android:drawable/ic_menu_manage"
         android:title="@string/bottom_menu_settings"

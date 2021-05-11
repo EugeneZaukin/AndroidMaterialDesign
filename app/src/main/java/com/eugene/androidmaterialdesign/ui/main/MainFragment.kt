@@ -19,6 +19,7 @@ import coil.api.load
 import com.eugene.androidmaterialdesign.MainActivity
 import com.eugene.androidmaterialdesign.R
 import com.eugene.androidmaterialdesign.ui.SettingsFragment
+import com.eugene.androidmaterialdesign.ui.recycler_view.RecyclerActivity
 import com.eugene.androidmaterialdesign.ui.viewpager.Date
 import com.eugene.androidmaterialdesign.ui.viewpager.DayFragment
 import com.eugene.androidmaterialdesign.ui.viewpager.ViewPagerAdapter
@@ -211,6 +212,7 @@ class MainFragment : Fragment() {
                     ?.replace(R.id.container, SettingsFragment.newInstance())
                     ?.addToBackStack(null)
                     ?.commit()
+            R.id.notes -> activity?.let { startActivity(Intent(it, RecyclerActivity::class.java)) }
         }
         return super.onOptionsItemSelected(item)
     }

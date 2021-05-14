@@ -59,12 +59,9 @@
             app:layout_constraintVertical_bias="0.0">
 
             <TextView
+                style="@style/TextViewDatePicture"
                 android:id="@+id/text_view_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="@string/text_example"
-                android:textSize="@dimen/text_date_size"
-                android:layout_gravity="end" />
+                tools:text="@string/text_example"/>
         </FrameLayout>
 
     </androidx.constraintlayout.motion.widget.MotionLayout>

@@ -1,14 +1,23 @@
 package com.eugene.androidmaterialdesign.ui.main
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
+import android.text.style.BulletSpan
+import android.text.style.ForegroundColorSpan
 import androidx.transition.ArcMotion
 import androidx.transition.ChangeBounds
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -184,6 +193,18 @@ class MainFragment : Fragment() {
 
                     bsTittle.text = serverResponseData.title
                     bsContent.text = serverResponseData.explanation
+
+                    //Использование span
+                    val spannable = SpannableString(bsContent.text)
+                    spannable.setSpan(
+                        BulletSpan(20, Color.GRAY, 20), 0, 1,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    spannable.setSpan(
+                        BackgroundColorSpan(R.color.orange_light), 13, 16,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    bsContent.text = spannable
                 }
             }
             is PictureOfTheDayData.Loading -> {

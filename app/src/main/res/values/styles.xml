@@ -38,6 +38,8 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">@dimen/text_view_descriptionheader_bottom_sheet_text_size</item>
         <item name="android:textColor">?attr/colorOnPrimaryBootomSheet</item>
+        <!-- //Добавил папку font/шрифт и применил к стилю-->
+        <item name="fontFamily">@font/spantaran</item>
     </style>
 
     <style name="TextViewDescriptionBottomSheet">
@@ -48,6 +50,15 @@
         <item name="android:text">@string/text_view_description_bottom_sheet_text</item>
         <item name="android:textSize">@dimen/text_view_description_bottom_sheet_text_size</item>
         <item name="android:textColor">?attr/colorOnPrimaryBootomSheet</item>
+    </style>
+
+    <style name="TextViewDatePicture">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_date_size</item>
+        <item name="android:layout_gravity">end</item>
+        <!-- //Добавил папку font/шрифт и применил к стилю-->
+        <item name="fontFamily">@font/edgeregular</item>
     </style>
 
 </resources>

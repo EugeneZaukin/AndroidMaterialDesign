@@ -63,10 +63,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Добавляем адаптер
-
         binding.viewPager.adapter = ViewPagerAdapter(childFragmentManager)
 
-        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+        setBottomSheetBehavior()
         setBottomAppBar(view)
 
         binding.inputLayout.setEndIconOnClickListener {
@@ -74,10 +73,6 @@ class MainFragment : Fragment() {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${input_edit_text.text.toString()}")
             })
         }
-
-        bsTittle = view.findViewById(R.id.bottom_sheet_description_header)
-        bsContent = view.findViewById(R.id.bottom_sheet_description)
-        textDate = view.findViewById(R.id.text_view_date)
     }
 
 //    override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -152,22 +147,22 @@ class MainFragment : Fragment() {
                         animationPosition = 2
                     }
                 }
-                viewModel.getData(date).observe(viewLifecycleOwner, Observer<PictureOfTheDayData> { renderData(it) })
+//                viewModel.getData(date).observe(viewLifecycleOwner, Observer<PictureOfTheDayData> { renderData(it) })
 
-                textDate.text = date
+                binding.tvDate.text = date
 
                 val changeBounds = ChangeBounds()
                 changeBounds.setPathMotion(ArcMotion())
                 changeBounds.duration = 500
                 TransitionManager.beginDelayedTransition(animation, changeBounds)
-                val params = textDate.layoutParams as FrameLayout.LayoutParams
+                val params = binding.tvDate.layoutParams as FrameLayout.LayoutParams
                 params.gravity = when(animationPosition) {
                     0 -> Gravity.START
                     1 -> Gravity.CENTER
                     2 -> Gravity.END
                     else -> Gravity.END
                 }
-                textDate.layoutParams = params
+                binding.tvDate.layoutParams = params
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
@@ -175,7 +170,7 @@ class MainFragment : Fragment() {
         })
 
         viewModel.getData(date).observe(viewLifecycleOwner, Observer<PictureOfTheDayData> { renderData(it) })
-        textDate.text = date
+        binding.tvDate.text = date
     }
 
     private fun renderData(data: PictureOfTheDayData) {
@@ -187,7 +182,7 @@ class MainFragment : Fragment() {
                     //Отображение ошибки
                 } else {
 
-                    val imageView = view?.findViewById<ImageView>(R.id.image_view_day);
+                    val imageView = activity?.findViewById<ImageView>(R.id.image_view_day)
                     imageView?.load(url) {
                         lifecycle(this@MainFragment)
                         error(R.drawable.errorimage)
@@ -196,20 +191,8 @@ class MainFragment : Fragment() {
 
 //                    DayFragment.newInstance(url)
 
-                    bsTittle.text = serverResponseData.title
-                    bsContent.text = serverResponseData.explanation
-
-                    //Использование span
-                    val spannable = SpannableString(bsContent.text)
-                    spannable.setSpan(
-                        BulletSpan(20, Color.GRAY, 20), 0, 1,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                    )
-                    spannable.setSpan(
-                        BackgroundColorSpan(R.color.orange_light), 13, 16,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                    )
-                    bsContent.text = spannable
+                    binding.bottomSheetDescription.bsTitle.text = serverResponseData.title
+                    binding.bottomSheetDescription.bsContent.text = serverResponseData.explanation
                 }
             }
             is PictureOfTheDayData.Loading -> {
@@ -221,8 +204,8 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+    private fun setBottomSheetBehavior() {
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheetDescription.root)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 

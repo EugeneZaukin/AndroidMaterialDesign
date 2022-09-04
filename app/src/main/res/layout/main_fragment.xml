@@ -60,7 +60,7 @@
 
             <TextView
                 style="@style/TextViewDatePicture"
-                android:id="@+id/text_view_date"
+                android:id="@+id/tv_date"
                 tools:text="@string/text_example"/>
         </FrameLayout>
 

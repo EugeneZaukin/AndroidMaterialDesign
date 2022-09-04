@@ -1,37 +1,21 @@
 package com.eugene.androidmaterialdesign.ui.main
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.Typeface
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.BackgroundColorSpan
-import android.text.style.BulletSpan
-import android.text.style.ForegroundColorSpan
-import androidx.transition.ArcMotion
-import androidx.transition.ChangeBounds
+import androidx.transition.*
 import android.view.*
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.annotation.RequiresApi
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.transition.TransitionManager
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
-import coil.api.load
-import com.eugene.androidmaterialdesign.MainActivity
+import androidx.lifecycle.*
+import androidx.viewpager2.widget.ViewPager2
 import com.eugene.androidmaterialdesign.R
 import com.eugene.androidmaterialdesign.databinding.MainFragmentBinding
 import com.eugene.androidmaterialdesign.ui.SettingsFragment
 import com.eugene.androidmaterialdesign.ui.recycler_view.RecyclerActivity
 import com.eugene.androidmaterialdesign.ui.viewpager.Date
-import com.eugene.androidmaterialdesign.ui.viewpager.DayFragment
 import com.eugene.androidmaterialdesign.ui.viewpager.ViewPagerAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -45,15 +29,10 @@ class MainFragment : Fragment() {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
 
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-    private lateinit var bsTittle: TextView
-    private lateinit var bsContent: TextView
-    private lateinit var textDate: TextView
     private var animationPosition = 2
+    private var date = Date()
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
+    private lateinit var pageListener: ViewPager2.OnPageChangeCallback
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
@@ -62,12 +41,26 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Добавляем адаптер
-        binding.viewPager.adapter = ViewPagerAdapter(childFragmentManager)
-
+        setBottomAppBar()
         setBottomSheetBehavior()
-        setBottomAppBar(view)
+        initSearchClick()
+        initViewPager()
+        binding.tvDate.text = date.today
+    }
 
+    private fun setBottomAppBar() {
+        val appActivity = activity as AppCompatActivity
+        appActivity.setSupportActionBar(binding.bottomAppBar)
+        setHasOptionsMenu(true)
+    }
+
+    private fun setBottomSheetBehavior() {
+        val bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout> =
+            BottomSheetBehavior.from(binding.bottomSheetDescription.root)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
+    private fun initSearchClick() {
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${input_edit_text.text.toString()}")
@@ -75,81 +68,27 @@ class MainFragment : Fragment() {
         }
     }
 
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        val currentData = Date()
-//        var date = "${currentData.year}-${currentData.month}-${currentData.day}"
-//
-//        //Определяем первональную позицию
-//        view_pager.currentItem = 1
-//        //Добавлчям листенер на свайп ViewPger чтобы обновлять текст в BottomSheetBehavior
-//        view_pager.addOnPageChangeListener(object  : OnPageChangeListener {
-//            override fun onPageSelected(position: Int) {
-//                when(position) {
-//                    0 -> date = "${currentData.year}-${currentData.month}-${currentData.day-1}"
-//                    1 -> date = "${currentData.year}-${currentData.month}-${currentData.day}"
-//                }
-//                viewModel.getData(date).observe(viewLifecycleOwner, Observer<PictureOfTheDayData> { renderData(it) })
-//                textDate.text = date
-//            }
-//
-//            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-//            override fun onPageScrollStateChanged(state: Int) {}
-//        })
-//
-//        viewModel.getData(date).observe(viewLifecycleOwner, Observer<PictureOfTheDayData> { renderData(it) })
-//        textDate.text = date
-//    }
+    private fun initViewPager() {
+        var dateForRequest = date.today
+        binding.viewPager.adapter = ViewPagerAdapter(requireActivity(), date)
+//        binding.viewPager.currentItem = 2
 
-//    private fun renderData(data: PictureOfTheDayData) {
-//        when (data) {
-//            is PictureOfTheDayData.Success -> {
-//                val serverResponseData = data.serverResponseData
-//                val url = serverResponseData.url
-//                if (url.isNullOrEmpty()) {
-//                    //Отображение ошибки
-//                } else {
-//                    bsTittle.text = serverResponseData.title
-//                    bsContent.text = serverResponseData.explanation
-//                }
-//            }
-//            is PictureOfTheDayData.Loading -> {
-//                //Загрузка
-//            }
-//            is PictureOfTheDayData.Error -> {
-//                //Ошибка
-//            }
-//        }
-//    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        val currentData = Date()
-
-        var date = currentData.today
-
-        //Определяем первональную позицию
-        view_pager.currentItem = 2
-        //Добавлчям листенер на свайп ViewPger
-        view_pager.addOnPageChangeListener(object  : OnPageChangeListener {
+        pageListener = object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 when(position) {
                     0 -> {
-                        date = currentData.theDayBeforeYesterday
+                        dateForRequest = date.theDayBeforeYesterday
                         animationPosition = 0
                     }
                     1 -> {
-                        date = currentData.yesterday
+                        dateForRequest = date.yesterday
                         animationPosition = 1
                     }
                     2 -> {
-                        date = currentData.today
+                        dateForRequest = date.today
                         animationPosition = 2
                     }
                 }
-//                viewModel.getData(date).observe(viewLifecycleOwner, Observer<PictureOfTheDayData> { renderData(it) })
-
-                binding.tvDate.text = date
 
                 val changeBounds = ChangeBounds()
                 changeBounds.setPathMotion(ArcMotion())
@@ -163,14 +102,15 @@ class MainFragment : Fragment() {
                     else -> Gravity.END
                 }
                 binding.tvDate.layoutParams = params
+
+
+                binding.tvDate.text = dateForRequest
+
+                viewModel.getData(dateForRequest).observe(viewLifecycleOwner, Observer { renderData(it) })
+
             }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-            override fun onPageScrollStateChanged(state: Int) {}
-        })
-
-        viewModel.getData(date).observe(viewLifecycleOwner, Observer<PictureOfTheDayData> { renderData(it) })
-        binding.tvDate.text = date
+        }
+        binding.viewPager.registerOnPageChangeCallback(pageListener)
     }
 
     private fun renderData(data: PictureOfTheDayData) {
@@ -178,16 +118,21 @@ class MainFragment : Fragment() {
             is PictureOfTheDayData.Success -> {
                 val serverResponseData = data.serverResponseData
                 val url = serverResponseData.url
+
+
                 if (url.isNullOrEmpty()) {
                     //Отображение ошибки
                 } else {
 
-                    val imageView = activity?.findViewById<ImageView>(R.id.image_view_day)
-                    imageView?.load(url) {
-                        lifecycle(this@MainFragment)
-                        error(R.drawable.errorimage)
-                        placeholder(R.drawable.formatimage)
-                    }
+
+
+
+//                    val imageView = activity?.findViewById<ImageView>(R.id.image_view_day)
+//                    imageView?.load(url) {
+//                        lifecycle(this@MainFragment)
+//                        error(R.drawable.errorimage)
+//                        placeholder(R.drawable.formatimage)
+//                    }
 
 //                    DayFragment.newInstance(url)
 
@@ -204,10 +149,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun setBottomSheetBehavior() {
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheetDescription.root)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-    }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -226,14 +168,11 @@ class MainFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setBottomAppBar(view: View) {
-        val context = activity as MainActivity
-        context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
-        setHasOptionsMenu(true)
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        binding.viewPager.unregisterOnPageChangeCallback(pageListener)
     }
 }

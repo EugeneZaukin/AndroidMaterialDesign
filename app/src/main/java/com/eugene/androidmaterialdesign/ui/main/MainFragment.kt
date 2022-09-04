@@ -27,6 +27,7 @@ import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import coil.api.load
 import com.eugene.androidmaterialdesign.MainActivity
 import com.eugene.androidmaterialdesign.R
+import com.eugene.androidmaterialdesign.databinding.MainFragmentBinding
 import com.eugene.androidmaterialdesign.ui.SettingsFragment
 import com.eugene.androidmaterialdesign.ui.recycler_view.RecyclerActivity
 import com.eugene.androidmaterialdesign.ui.viewpager.Date
@@ -37,9 +38,11 @@ import kotlinx.android.synthetic.main.main_fragment.*
 
 
 class MainFragment : Fragment() {
+    private var _binding: MainFragmentBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+        ViewModelProvider(this)[MainViewModel::class.java]
     }
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
@@ -52,24 +55,26 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View {
+        _binding = MainFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Добавляем адаптер
-        view_pager.adapter = ViewPagerAdapter(childFragmentManager)
+
+        binding.viewPager.adapter = ViewPagerAdapter(childFragmentManager)
+
         setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
         setBottomAppBar(view)
-        input_layout.setEndIconOnClickListener {
+
+        binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${input_edit_text.text.toString()}")
             })
         }
+
         bsTittle = view.findViewById(R.id.bottom_sheet_description_header)
         bsContent = view.findViewById(R.id.bottom_sheet_description)
         textDate = view.findViewById(R.id.text_view_date)
@@ -242,5 +247,10 @@ class MainFragment : Fragment() {
         val context = activity as MainActivity
         context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
         setHasOptionsMenu(true)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

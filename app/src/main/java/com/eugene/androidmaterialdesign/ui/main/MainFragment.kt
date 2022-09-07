@@ -172,7 +172,7 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         binding.viewPager.unregisterOnPageChangeCallback(pageListener)
+        _binding = null
     }
 }

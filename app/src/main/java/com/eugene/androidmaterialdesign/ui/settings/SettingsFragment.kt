@@ -17,11 +17,6 @@ class SettingsFragment : Fragment() {
     private val MARS_THEME = 0
     private val SPACE_THEME = 1
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = SettingsFragment()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         //Применяем тему

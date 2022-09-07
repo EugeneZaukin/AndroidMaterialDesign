@@ -1,9 +1,10 @@
 package com.eugene.androidmaterialdesign.ui.main.viewpager
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.eugene.androidmaterialdesign.BuildConfig
 import com.eugene.androidmaterialdesign.data.repository.NetworkRepository
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class DayFragmentViewModel @Inject constructor(private val nasaRepository: NetworkRepository): ViewModel() {
@@ -14,25 +15,13 @@ class DayFragmentViewModel @Inject constructor(private val nasaRepository: Netwo
         val apiKey: String = BuildConfig.NASA_API_KEY
 
 
-//        retrofitImpl.getRetrofitImpl().getPictureOfTheDay(apiKey, date).enqueue(object : Callback<NasaInfo> {
-//            override fun onResponse(
-//                call: Call<NasaInfo>,
-//                response: Response<NasaInfo>
-//            ) {
-//                if (response.isSuccessful && response.body() != null) {
-//                    _urlString.tryEmit(response.body()!!.url!!)
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<NasaInfo>, t: Throwable) {
-//
-//            }
-//
-//        })
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val pictureOfTheDay = nasaRepository.getPictureOfTheDay(apiKey, date)
+                _urlString.tryEmit(pictureOfTheDay.url)
+            } catch (e: Exception) {
 
-
+            }
+        }
     }
-
-
-
 }

@@ -8,15 +8,13 @@ import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.*
 import androidx.lifecycle.*
 import androidx.viewpager2.widget.ViewPager2
 import com.eugene.androidmaterialdesign.R
 import com.eugene.androidmaterialdesign.appComponent
 import com.eugene.androidmaterialdesign.databinding.MainFragmentBinding
 import com.eugene.androidmaterialdesign.domain.Date
-import com.eugene.androidmaterialdesign.domain.PictureOfTheDayData
 import com.eugene.androidmaterialdesign.ui.settings.SettingsFragment
 import com.eugene.androidmaterialdesign.ui.notes.RecyclerActivity
 import com.eugene.androidmaterialdesign.ui.main.viewpager.ViewPagerAdapter
@@ -49,6 +47,20 @@ class MainFragment : Fragment() {
         initSearchClick()
         initViewPager()
         binding.tvDate.text = date.today
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.titleText.collect { binding.bottomSheetDescription.bsTitle.text = it }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.descriptionText.collect { binding.bottomSheetDescription.bsContent.text = it }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.error.collect {
+                if (it.isNotEmpty()) Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setBottomAppBar() {
@@ -105,54 +117,13 @@ class MainFragment : Fragment() {
                     else -> Gravity.END
                 }
                 binding.tvDate.layoutParams = params
-
-
                 binding.tvDate.text = dateForRequest
 
-                viewModel.getData(dateForRequest).observe(viewLifecycleOwner, Observer { renderData(it) })
-
+                viewModel.sendServerRequest(dateForRequest)
             }
         }
         binding.viewPager.registerOnPageChangeCallback(pageListener)
     }
-
-    private fun renderData(data: PictureOfTheDayData) {
-        when (data) {
-            is PictureOfTheDayData.Success -> {
-                val serverResponseData = data.serverResponseData
-                val url = serverResponseData.url
-
-
-                if (url.isNullOrEmpty()) {
-                    //Отображение ошибки
-                } else {
-
-
-
-
-//                    val imageView = activity?.findViewById<ImageView>(R.id.image_view_day)
-//                    imageView?.load(url) {
-//                        lifecycle(this@MainFragment)
-//                        error(R.drawable.errorimage)
-//                        placeholder(R.drawable.formatimage)
-//                    }
-
-//                    DayFragment.newInstance(url)
-
-                    binding.bottomSheetDescription.bsTitle.text = serverResponseData.title
-                    binding.bottomSheetDescription.bsContent.text = serverResponseData.explanation
-                }
-            }
-            is PictureOfTheDayData.Loading -> {
-                //Загрузка
-            }
-            is PictureOfTheDayData.Error -> {
-                //Ошибка
-            }
-        }
-    }
-
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)

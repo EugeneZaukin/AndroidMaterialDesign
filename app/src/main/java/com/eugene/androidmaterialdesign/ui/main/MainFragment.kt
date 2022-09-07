@@ -73,6 +73,7 @@ class MainFragment : Fragment(), MenuProvider {
         val bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout> =
             BottomSheetBehavior.from(binding.bottomSheetDescription.root)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        bottomSheetBehavior.isHideable = false
     }
 
     private fun initSearchClick() {

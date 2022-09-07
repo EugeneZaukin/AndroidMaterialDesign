@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">AndroidMaterialDesign</string>
+    <string name="search_wiki">Поиск в Википедии</string>
+    <string name="wiki_helper_text">Найдите термин в википедии</string>
+    <string name="bottom_menu_settings">Настройки</string>
+    <string name="chip_text_theme_one">Космическая тема</string>
+    <string name="chip_text_theme_two">Марсианская тема</string>
+    <string name="text_view_descriptionheader_bottom_sheet_text">Two Clusters and a Comet</string>
+    <string name="text_view_description_bottom_sheet_text">Description of Picture of the day</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_example">TextExample</string>
+    <string name="bottom_menu_item_notes">Заметки</string>
 </resources>

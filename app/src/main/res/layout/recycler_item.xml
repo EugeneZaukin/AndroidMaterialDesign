@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recycler_item_linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_card_view_on_recycler"
+    app:cardCornerRadius="@dimen/corner_radius_card_view"
+    android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/recycler_view_item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start_tv_on_card_view"
+            android:layout_marginTop="@dimen/margin_top_tv_on_card_view"
+            android:textSize="@dimen/header_text_size_on_card_view"
+            tools:text="Note" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/recycler_view_item_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_edit_text_on_card_view"
+            android:layout_marginStart="@dimen/margin_start_edit_text_on_card_view"
+            android:textSize="@dimen/text_size_edit_text_on_card_view"
+            android:visibility="gone"
+            tools:text="Edit Text"
+            tools:visibility="visible"/>
+
+</androidx.cardview.widget.CardView>

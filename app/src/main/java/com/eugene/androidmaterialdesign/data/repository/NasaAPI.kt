@@ -1,14 +1,12 @@
 package com.eugene.androidmaterialdesign.data.repository
 
-import com.eugene.androidmaterialdesign.data.model.PODServerResponseData
-import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Query
+import com.eugene.androidmaterialdesign.data.model.NasaInfo
+import retrofit2.http.*
 
 interface NasaAPI {
     @GET("planetary/apod")
     fun getPictureOfTheDay(
         @Query("api_key") apiKey: String,
         @Query("date") date: String
-    ) : Call<PODServerResponseData>
+    ) : NasaInfo
 }

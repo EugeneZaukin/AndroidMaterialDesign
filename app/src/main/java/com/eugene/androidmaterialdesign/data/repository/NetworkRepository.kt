@@ -1,5 +1,7 @@
 package com.eugene.androidmaterialdesign.data.repository
 
-interface NetworkRepository {
+import com.eugene.androidmaterialdesign.data.model.NasaInfo
 
+interface NetworkRepository {
+    suspend fun getPictureOfTheDay(apiKey: String, date: String): NasaInfo
 }

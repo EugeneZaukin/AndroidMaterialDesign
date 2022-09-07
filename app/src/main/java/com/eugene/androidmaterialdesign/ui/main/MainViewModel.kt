@@ -11,11 +11,11 @@ import com.eugene.androidmaterialdesign.domain.PictureOfTheDayData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class MainViewModel (
-    private val liveDataForViewToObserve: MutableLiveData<PictureOfTheDayData> = MutableLiveData(),
-    private val nasaRepository: NetworkRepository
-) : ViewModel() {
+class MainViewModel @Inject constructor(private val nasaRepository: NetworkRepository) : ViewModel() {
+
+    private val liveDataForViewToObserve: MutableLiveData<PictureOfTheDayData> = MutableLiveData()
 
     fun getData(date: String): LiveData<PictureOfTheDayData> {
         sendServerRequest(date)

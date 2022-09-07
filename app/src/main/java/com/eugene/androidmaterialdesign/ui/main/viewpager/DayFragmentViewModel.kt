@@ -2,14 +2,11 @@ package com.eugene.androidmaterialdesign.ui.main.viewpager
 
 import androidx.lifecycle.ViewModel
 import com.eugene.androidmaterialdesign.BuildConfig
-import com.eugene.androidmaterialdesign.data.repository.NetworkRepositoryImpl
-import com.eugene.androidmaterialdesign.data.model.NasaInfo
+import com.eugene.androidmaterialdesign.data.repository.NetworkRepository
 import kotlinx.coroutines.flow.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import javax.inject.Inject
 
-class DayFragmentViewModel : ViewModel() {
+class DayFragmentViewModel @Inject constructor(private val nasaRepository: NetworkRepository): ViewModel() {
     private val _urlString = MutableStateFlow("")
     val urlString get() = _urlString.asStateFlow()
 

@@ -14,6 +14,13 @@ class NetworkModule {
     fun gsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
     @Provides
+    fun httpLoggingInterceptor(): HttpLoggingInterceptor {
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return httpLoggingInterceptor
+    }
+
+    @Provides
     fun OkHttpClient(interceptor: NasaInterceptor, httpLogging: HttpLoggingInterceptor): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(interceptor)
@@ -29,4 +36,7 @@ class NetworkModule {
 
     @Provides
     fun api(retrofit: Retrofit): NasaAPI = retrofit.create(NasaAPI::class.java)
+
+    @Provides
+    fun provideNetworkRepos(api: NasaAPI): NetworkRepository = NetworkRepositoryImpl(api)
 }

@@ -9,9 +9,11 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import androidx.viewpager2.widget.ViewPager2
 import com.eugene.androidmaterialdesign.R
+import com.eugene.androidmaterialdesign.appComponent
 import com.eugene.androidmaterialdesign.databinding.MainFragmentBinding
 import com.eugene.androidmaterialdesign.domain.Date
 import com.eugene.androidmaterialdesign.domain.PictureOfTheDayData
@@ -26,8 +28,8 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
+    private val viewModel by viewModels<MainViewModel> {
+        requireContext().appComponent.viewModelFactory
     }
 
     private var animationPosition = 2

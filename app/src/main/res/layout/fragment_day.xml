@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.viewpager.TodayFragment">
+    tools:context=".ui.main.viewpager.DayFragment">
 
-    <com.eugene.androidmaterialdesign.ui.view.EquilateralImageView
+    <ImageView
         android:id="@+id/image_view_day"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_gallery"/>
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@android:drawable/ic_menu_gallery"
+        android:contentDescription="@null" />
 
 </FrameLayout>

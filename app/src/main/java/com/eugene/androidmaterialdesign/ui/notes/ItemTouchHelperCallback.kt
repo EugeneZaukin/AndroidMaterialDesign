@@ -1,4 +1,4 @@
-package com.eugene.androidmaterialdesign.ui.recycler_view
+package com.eugene.androidmaterialdesign.ui.notes
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

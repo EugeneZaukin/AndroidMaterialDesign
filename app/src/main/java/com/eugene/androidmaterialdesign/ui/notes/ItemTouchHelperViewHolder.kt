@@ -1,4 +1,4 @@
-package com.eugene.androidmaterialdesign.ui.recycler_view
+package com.eugene.androidmaterialdesign.ui.notes
 
 interface ItemTouchHelperViewHolder {
     fun onItemSelected()

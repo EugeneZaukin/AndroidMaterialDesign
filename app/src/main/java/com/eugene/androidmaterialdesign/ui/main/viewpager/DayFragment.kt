@@ -1,4 +1,4 @@
-package com.eugene.androidmaterialdesign.ui.viewpager
+package com.eugene.androidmaterialdesign.ui.main.viewpager
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import coil.api.load
 import com.eugene.androidmaterialdesign.R
+import com.eugene.androidmaterialdesign.appComponent
 import com.eugene.androidmaterialdesign.databinding.FragmentDayBinding
 
 private const val DATE = "date"
@@ -16,7 +17,9 @@ class DayFragment : Fragment() {
     private var _binding: FragmentDayBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<DayFragmentViewModel>()
+    private val viewModel by viewModels<DayFragmentViewModel> {
+        requireContext().appComponent.viewModelFactory
+    }
 
     private var date: String? = null
 

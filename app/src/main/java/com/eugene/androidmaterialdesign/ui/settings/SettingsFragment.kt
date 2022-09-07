@@ -1,4 +1,4 @@
-package com.eugene.androidmaterialdesign.ui
+package com.eugene.androidmaterialdesign.ui.settings
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -16,11 +16,6 @@ class SettingsFragment : Fragment() {
     private val APP_THEME = "APP_THEME"
     private val MARS_THEME = 0
     private val SPACE_THEME = 1
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = SettingsFragment()
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

@@ -8,6 +8,7 @@ import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.*
 import androidx.lifecycle.*
 import androidx.viewpager2.widget.ViewPager2
@@ -21,8 +22,7 @@ import com.eugene.androidmaterialdesign.ui.main.viewpager.ViewPagerAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.main_fragment.*
 
-
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), MenuProvider {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -64,9 +64,9 @@ class MainFragment : Fragment() {
     }
 
     private fun setBottomAppBar() {
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         val appActivity = activity as AppCompatActivity
         appActivity.setSupportActionBar(binding.bottomAppBar)
-        setHasOptionsMenu(true)
     }
 
     private fun setBottomSheetBehavior() {
@@ -125,24 +125,25 @@ class MainFragment : Fragment() {
         binding.viewPager.registerOnPageChangeCallback(pageListener)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.bottom_menu, menu)
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.bottom_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.settings ->
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, SettingsFragment.newInstance())
-                    ?.addToBackStack(null)
-                    ?.commit()
-            R.id.notes -> activity?.let { startActivity(Intent(it, RecyclerActivity::class.java)) }
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
+        when(menuItem.itemId) {
+            R.id.settings -> {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, SettingsFragment())
+                    .addToBackStack(null)
+                    .commit()
+                true
+            }
+            R.id.notes -> {
+                startActivity(Intent(requireActivity(), RecyclerActivity::class.java))
+                true
+            }
+            else -> false
         }
-        return super.onOptionsItemSelected(item)
-    }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

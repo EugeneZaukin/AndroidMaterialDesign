@@ -1,4 +1,6 @@
-package com.eugene.androidmaterialdesign.ui.main
+package com.eugene.androidmaterialdesign.domain
+
+import com.eugene.androidmaterialdesign.data.model.PODServerResponseData
 
 sealed class PictureOfTheDayData {
     data class Success(val serverResponseData: PODServerResponseData) : PictureOfTheDayData()

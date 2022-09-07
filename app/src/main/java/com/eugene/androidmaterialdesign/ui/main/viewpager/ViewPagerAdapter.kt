@@ -1,7 +1,8 @@
-package com.eugene.androidmaterialdesign.ui.viewpager
+package com.eugene.androidmaterialdesign.ui.main.viewpager
 
 import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.eugene.androidmaterialdesign.domain.Date
 
 class ViewPagerAdapter(
     fragmentActivity: FragmentActivity,

@@ -13,10 +13,11 @@ import androidx.lifecycle.*
 import androidx.viewpager2.widget.ViewPager2
 import com.eugene.androidmaterialdesign.R
 import com.eugene.androidmaterialdesign.databinding.MainFragmentBinding
-import com.eugene.androidmaterialdesign.ui.SettingsFragment
-import com.eugene.androidmaterialdesign.ui.recycler_view.RecyclerActivity
-import com.eugene.androidmaterialdesign.ui.viewpager.Date
-import com.eugene.androidmaterialdesign.ui.viewpager.ViewPagerAdapter
+import com.eugene.androidmaterialdesign.domain.Date
+import com.eugene.androidmaterialdesign.domain.PictureOfTheDayData
+import com.eugene.androidmaterialdesign.ui.settings.SettingsFragment
+import com.eugene.androidmaterialdesign.ui.notes.RecyclerActivity
+import com.eugene.androidmaterialdesign.ui.main.viewpager.ViewPagerAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.main_fragment.*
 

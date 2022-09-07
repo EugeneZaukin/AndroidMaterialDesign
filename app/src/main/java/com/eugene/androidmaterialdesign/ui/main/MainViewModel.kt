@@ -4,13 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.eugene.androidmaterialdesign.BuildConfig
+import com.eugene.androidmaterialdesign.data.model.PODServerResponseData
+import com.eugene.androidmaterialdesign.data.repository.NetworkRepositoryImpl
+import com.eugene.androidmaterialdesign.domain.PictureOfTheDayData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainViewModel (
     private val liveDataForViewToObserve: MutableLiveData<PictureOfTheDayData> = MutableLiveData(),
-    private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
+    private val retrofitImpl: NetworkRepositoryImpl = NetworkRepositoryImpl()
 ) : ViewModel() {
 
     fun getData(date: String): LiveData<PictureOfTheDayData> {

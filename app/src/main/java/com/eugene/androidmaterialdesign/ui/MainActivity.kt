@@ -1,7 +1,8 @@
-package com.eugene.androidmaterialdesign
+package com.eugene.androidmaterialdesign.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.eugene.androidmaterialdesign.R
 import com.eugene.androidmaterialdesign.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {

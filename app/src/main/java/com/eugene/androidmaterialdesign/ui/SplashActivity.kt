@@ -1,4 +1,4 @@
-package com.eugene.androidmaterialdesign
+package com.eugene.androidmaterialdesign.ui
 
 import android.animation.Animator
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.animation.LinearInterpolator
 import com.eugene.androidmaterialdesign.databinding.ActivitySplashBinding
+import com.eugene.androidmaterialdesign.ui.MainActivity
 
 private const val ROTATION_BY_Y = 300f
 private const val DURATION_ANIMATION = 3000L

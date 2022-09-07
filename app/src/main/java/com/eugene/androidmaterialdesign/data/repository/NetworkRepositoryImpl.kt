@@ -1,6 +1,5 @@
-package com.eugene.androidmaterialdesign.ui.main
+package com.eugene.androidmaterialdesign.data.repository
 
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -11,16 +10,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import kotlin.jvm.Throws
 
-class PODRetrofitImpl {
+class NetworkRepositoryImpl {
 
     private val baseUrl = "https://api.nasa.gov/"
 
-    fun getRetrofitImpl(): PictureOfTheDayAPI {
+    fun getRetrofitImpl(): NasaAPI {
         val podRetrofit = Retrofit.Builder().baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .client(createOkHttpClient(PODInterceptor()))
             .build()
-        return podRetrofit.create(PictureOfTheDayAPI::class.java)
+        return podRetrofit.create(NasaAPI::class.java)
     }
 
     private fun createOkHttpClient(interceptor: Interceptor): OkHttpClient {

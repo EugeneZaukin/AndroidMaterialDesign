@@ -1,8 +1,7 @@
-package com.eugene.androidmaterialdesign.ui.recycler_view
+package com.eugene.androidmaterialdesign.ui.notes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.eugene.androidmaterialdesign.R
 import kotlinx.android.synthetic.main.activity_recycler.*

@@ -1,10 +1,9 @@
-package com.eugene.androidmaterialdesign.ui.viewpager
+package com.eugene.androidmaterialdesign.ui.main.viewpager
 
 import androidx.lifecycle.ViewModel
 import com.eugene.androidmaterialdesign.BuildConfig
-import com.eugene.androidmaterialdesign.ui.main.PODRetrofitImpl
-import com.eugene.androidmaterialdesign.ui.main.PODServerResponseData
-import com.eugene.androidmaterialdesign.ui.main.PictureOfTheDayData
+import com.eugene.androidmaterialdesign.data.repository.NetworkRepositoryImpl
+import com.eugene.androidmaterialdesign.data.model.PODServerResponseData
 import kotlinx.coroutines.flow.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,7 +13,7 @@ class DayFragmentViewModel : ViewModel() {
     private val _urlString = MutableStateFlow("")
     val urlString get() = _urlString.asStateFlow()
 
-    private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
+    private val retrofitImpl: NetworkRepositoryImpl = NetworkRepositoryImpl()
 
     fun getPicture(date: String) {
         val apiKey: String = BuildConfig.NASA_API_KEY

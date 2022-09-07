@@ -1,4 +1,4 @@
-package com.eugene.androidmaterialdesign.ui.viewpager
+package com.eugene.androidmaterialdesign.domain
 
 import java.text.SimpleDateFormat
 import java.util.*

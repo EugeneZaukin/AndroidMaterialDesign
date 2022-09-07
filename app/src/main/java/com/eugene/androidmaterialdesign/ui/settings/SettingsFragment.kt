@@ -1,4 +1,4 @@
-package com.eugene.androidmaterialdesign.ui
+package com.eugene.androidmaterialdesign.ui.settings
 
 import android.content.Context
 import android.content.SharedPreferences

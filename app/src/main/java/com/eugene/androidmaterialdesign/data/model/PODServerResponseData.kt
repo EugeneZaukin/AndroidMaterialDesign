@@ -1,4 +1,4 @@
-package com.eugene.androidmaterialdesign.ui.main
+package com.eugene.androidmaterialdesign.data.model
 
 import com.google.gson.annotations.SerializedName
 

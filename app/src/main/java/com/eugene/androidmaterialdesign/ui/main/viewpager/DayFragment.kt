@@ -1,4 +1,4 @@
-package com.eugene.androidmaterialdesign.ui.viewpager
+package com.eugene.androidmaterialdesign.ui.main.viewpager
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,13 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MotionScene
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
-        motion:constraintSetEnd="@layout/main_fragment"
-        motion:constraintSetStart="@layout/main_fragment_start"
-        motion:duration="1000">
+        motion:constraintSetEnd="@id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="600">
 
         <OnClick app:targetId="@+id/wiki_button"/>
+
+        <KeyFrameSet>
+            <KeyAttribute
+                app:motionTarget="@+id/wiki_button"
+                android:alpha="0"
+                app:framePosition="1" />
+        </KeyFrameSet>
     </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/wiki_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/button_wiki_margin_end"
+            android:layout_marginBottom="@dimen/button_wiki_margin_bottom"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/input_layout"
+            app:srcCompat="@drawable/ic_wikipedia" />
+
+        <Constraint
+            android:id="@+id/input_layout"
+            style="@style/TextInputLayoutForWiki"
+            app:layout_constraintBottom_toTopOf="@+id/view_pager"
+            app:layout_constraintStart_toEndOf="parent" />
+
+        <Constraint
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_pager_height"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/animation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_pager" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/wiki_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/button_wiki_margin_end"
+            android:layout_marginBottom="@dimen/button_wiki_margin_bottom"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/input_layout"
+            app:srcCompat="@drawable/ic_wikipedia" />
+
+        <Constraint
+            android:id="@+id/input_layout"
+            style="@style/TextInputLayoutForWiki"
+            app:layout_constraintBottom_toTopOf="@+id/view_pager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_pager_height"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/animation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_pager" />
+    </ConstraintSet>
 </MotionScene>

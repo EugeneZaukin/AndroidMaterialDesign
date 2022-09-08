@@ -10,9 +10,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:theme="@style/Theme.AndroidMaterialDesign">
-        <activity android:name=".ui.MainActivity" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ui.notes.RecyclerActivity" />
         <activity android:name=".ui.SplashActivity"
             android:exported="true">

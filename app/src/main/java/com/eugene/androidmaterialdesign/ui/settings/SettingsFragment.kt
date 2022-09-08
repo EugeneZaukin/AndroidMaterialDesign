@@ -1,75 +1,52 @@
 package com.eugene.androidmaterialdesign.ui.settings
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.eugene.androidmaterialdesign.R
-import com.google.android.material.chip.ChipGroup
+import android.view.*
+import androidx.core.view.get
+import androidx.fragment.app.*
+import androidx.lifecycle.lifecycleScope
+import com.eugene.androidmaterialdesign.*
+import com.eugene.androidmaterialdesign.databinding.FragmentSettingsBinding
+import com.google.android.material.chip.Chip
 
 class SettingsFragment : Fragment() {
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
 
-    private val NAME_SHARED_PREFERENCE = "LOGIN"
-    private val APP_THEME = "APP_THEME"
-    private val MARS_THEME = 0
-    private val SPACE_THEME = 1
+    private val viewModel by viewModels<SettingsViewModel> {
+        requireContext().appComponent.viewModelFactory
+    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View {
         //Применяем тему
-        activity?.setTheme(getAppTheme(R.style.MarsTheme))
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        requireActivity().setTheme(viewModel.getTheme())
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initChipGroup()
-    }
 
-    //Получить тему
-    private fun getAppTheme(codeStyle: Int): Int {
-        return codeStyleToStyleId(getCodeStyle(codeStyle))
-    }
-
-    //Ищем тему по номеру
-    private fun codeStyleToStyleId(codestyle: Int): Int {
-        return when (codestyle) {
-            MARS_THEME -> R.style.MarsTheme
-            SPACE_THEME -> R.style.SpaceTheme
-            else -> R.style.MarsTheme
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.themeByClick.collect {
+                requireActivity().setTheme(it)
+                requireActivity().recreate()
+            }
         }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.chipCheckedState.collect {
+                (binding.chipGroup[it] as Chip).isChecked = true
+            }
+        }
+
     }
 
-    //Ищем код
-    private fun getCodeStyle(codestyle: Int): Int {
-        val sharedPref: SharedPreferences? = activity?.getSharedPreferences(NAME_SHARED_PREFERENCE, Context.MODE_PRIVATE)
-        return sharedPref?.getInt(APP_THEME, codestyle)!!
-    }
-
-    //Инициализируем Chip
     private fun initChipGroup() {
-        clickedChip(view?.findViewById(R.id.chip_mars_theme), MARS_THEME)
-        clickedChip(view?.findViewById(R.id.chip_space_theme), SPACE_THEME)
-        val chipGroup = view?.findViewById<ChipGroup>(R.id.chip_group)
-        chipGroup?.isSelectionRequired = true;
-    }
-
-    //Обработка нажатия Chip
-    private fun clickedChip(chip: View?, codestyle: Int) {
-        chip?.setOnClickListener {
-            setAppTheme(codestyle)
-            activity?.recreate()
+        with(binding) {
+            chipMarsTheme.setOnClickListener { viewModel.onClickSaveTheme(MARS_THEME) }
+            chipSpaceTheme.setOnClickListener { viewModel.onClickSaveTheme(SPACE_THEME) }
         }
-    }
-
-    //Записываем тему
-    private fun setAppTheme(codestyle: Int) {
-        val sharedPref: SharedPreferences? = activity?.getSharedPreferences(NAME_SHARED_PREFERENCE, Context.MODE_PRIVATE)
-        val editor = sharedPref?.edit()
-        editor?.putInt(APP_THEME, codestyle)
-        editor?.apply()
     }
 }

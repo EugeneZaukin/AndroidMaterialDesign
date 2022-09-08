@@ -2,14 +2,14 @@ package com.eugene.androidmaterialdesign.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.eugene.androidmaterialdesign.R
+import androidx.datastore.preferences.core.intPreferencesKey
+import com.eugene.androidmaterialdesign.*
 import com.eugene.androidmaterialdesign.ui.main.MainFragment
+import com.eugene.androidmaterialdesign.ui.settings.*
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
-
-    private val NAME_SHARED_PREFERENCE = "LOGIN"
-    private val APP_THEME = "APP_THEME"
-    private val MARS_THEME = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //Установка темы
@@ -23,16 +23,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //Тема из SharedPreferences
+    //Тема из DataStorePreferences
     private fun getAppTheme() {
-        val sharedPreferences = getSharedPreferences(NAME_SHARED_PREFERENCE, MODE_PRIVATE)
-        if (sharedPreferences != null) {
-            val codeStyle = sharedPreferences.getInt(APP_THEME, 0)
-            if (codeStyle == MARS_THEME) {
-                setTheme(R.style.MarsTheme)
-            } else {
-                setTheme(R.style.SpaceTheme)
-            }
+        var theme: Int
+
+        runBlocking {
+            theme = dataStore.data.first()[intPreferencesKey(APP_THEME)] ?: SPACE_THEME
         }
+
+        if (theme == MARS_THEME)
+            setTheme(R.style.MarsTheme)
+        else
+            setTheme(R.style.SpaceTheme)
     }
 }

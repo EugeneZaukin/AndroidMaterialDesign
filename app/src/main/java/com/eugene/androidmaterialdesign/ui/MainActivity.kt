@@ -3,11 +3,9 @@ package com.eugene.androidmaterialdesign.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.intPreferencesKey
-import com.eugene.androidmaterialdesign.R
-import com.eugene.androidmaterialdesign.dataStore
+import com.eugene.androidmaterialdesign.*
 import com.eugene.androidmaterialdesign.ui.main.MainFragment
-import com.eugene.androidmaterialdesign.ui.settings.APP_THEME
-import com.eugene.androidmaterialdesign.ui.settings.MARS_THEME
+import com.eugene.androidmaterialdesign.ui.settings.*
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
@@ -30,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         var theme: Int
 
         runBlocking {
-            theme = dataStore.data.first()[intPreferencesKey(APP_THEME)] ?: MARS_THEME
+            theme = dataStore.data.first()[intPreferencesKey(APP_THEME)] ?: SPACE_THEME
         }
 
         if (theme == MARS_THEME)

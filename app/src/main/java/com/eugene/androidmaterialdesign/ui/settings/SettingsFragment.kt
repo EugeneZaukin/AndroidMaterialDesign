@@ -2,10 +2,12 @@ package com.eugene.androidmaterialdesign.ui.settings
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.get
 import androidx.fragment.app.*
 import androidx.lifecycle.lifecycleScope
 import com.eugene.androidmaterialdesign.*
 import com.eugene.androidmaterialdesign.databinding.FragmentSettingsBinding
+import com.google.android.material.chip.Chip
 
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
@@ -30,6 +32,12 @@ class SettingsFragment : Fragment() {
             viewModel.themeByClick.collect {
                 requireActivity().setTheme(it)
                 requireActivity().recreate()
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.chipCheckedState.collect {
+                (binding.chipGroup[it] as Chip).isChecked = true
             }
         }
 

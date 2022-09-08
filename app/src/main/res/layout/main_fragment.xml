@@ -30,8 +30,7 @@
             android:id="@+id/input_layout"
             style="@style/TextInputLayoutForWiki"
             app:layout_constraintBottom_toTopOf="@+id/view_pager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toEndOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_edit_text"

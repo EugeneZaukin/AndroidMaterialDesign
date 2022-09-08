@@ -4,7 +4,7 @@ import android.content.Context
 import com.eugene.androidmaterialdesign.ui.ViewModelFactory
 import dagger.*
 
-@Component(modules = [NetworkModule::class, ViewModelModule::class])
+@Component(modules = [NetworkModule::class, ViewModelModule::class, UtilsModule::class])
 interface AppComponent {
     val viewModelFactory: ViewModelFactory
 

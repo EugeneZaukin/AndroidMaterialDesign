@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.intPreferencesKey
 import com.eugene.androidmaterialdesign.*
-import com.eugene.androidmaterialdesign.ui.main.MainFragment
 import com.eugene.androidmaterialdesign.ui.settings.*
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -16,11 +15,6 @@ class MainActivity : AppCompatActivity() {
         setTheme(getAppTheme())
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, MainFragment())
-                    .commitNow()
-        }
     }
 
     //Тема из DataStorePreferences

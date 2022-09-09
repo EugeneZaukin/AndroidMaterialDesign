@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //Установка темы
-        getAppTheme()
+        setTheme(getAppTheme())
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
@@ -24,16 +24,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Тема из DataStorePreferences
-    private fun getAppTheme() {
+    private fun getAppTheme(): Int {
         var theme: Int
 
         runBlocking {
             theme = dataStore.data.first()[intPreferencesKey(APP_THEME)] ?: SPACE_THEME
         }
-
-        if (theme == MARS_THEME)
-            setTheme(R.style.MarsTheme)
-        else
-            setTheme(R.style.SpaceTheme)
+        return if (theme == MARS_THEME) R.style.MarsTheme else R.style.SpaceTheme
     }
 }
